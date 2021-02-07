@@ -424,7 +424,8 @@ export default class XmppConnection extends Listenable {
                 if (responseShard !== shard) {
                     logger.error(
                         `Detected that shard changed from ${shard} to ${responseShard}`);
-                    this.eventEmitter.emit(XmppConnection.Events.CONN_SHARD_CHANGED);
+
+                    // this.eventEmitter.emit(XmppConnection.Events.CONN_SHARD_CHANGED);
                 }
             })
             .catch(error => {
