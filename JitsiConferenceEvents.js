@@ -198,7 +198,7 @@ export const PRIVATE_MESSAGE_RECEIVED = 'conference.privateMessageReceived';
 /**
  * Permission update was received (grant/revoke e.g. screenshare).
  */
-export const PERMISSION_UPDATE_RECEIVED = 'conference.permissionUpdateReceived';
+export const PARTICIPANT_PERMISSION_CHANGED = 'conference.participantPermissionChanged';
 
 /**
  * Event fired when JVB sends notification about interrupted/restored user's

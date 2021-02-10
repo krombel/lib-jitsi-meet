@@ -42,6 +42,7 @@ export default class JitsiParticipant {
         this._properties = {};
         this._identity = identity;
         this._features = new Set();
+        this._permissions = {};
     }
 
     /* eslint-enable max-params */
@@ -78,6 +79,13 @@ export default class JitsiParticipant {
     }
 
     /**
+     * Gets the value of a property of this participant.
+     */
+    hasPermission(permission) {
+        return Boolean(this._permissions[permission]);
+    }
+
+    /**
      * Updates participant's connection status.
      * @param {string} state the current participant connection state.
      * {@link ParticipantConnectionStatus}.
@@ -96,6 +104,20 @@ export default class JitsiParticipant {
      */
     getConnectionStatus() {
         return this._connectionStatus;
+    }
+
+    /**
+     * Sets the value of a property of this participant, and fires an event if
+     * the value has changed.
+     * @name the name of the property.
+     * @value the value to set.
+     */
+    setPermission(name, value) {
+        const oldValue = this._properties[name];
+
+        if (value !== oldValue) {
+            this._properties[name] = value;
+        }
     }
 
     /**

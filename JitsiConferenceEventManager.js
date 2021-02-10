@@ -399,14 +399,14 @@ JitsiConferenceEventManager.prototype.setupChatRoomListeners = function() {
         });
 
     chatRoom.addListener(
-        XMPPEvents.PERMISSION_UPDATE_RECEIVED,
+        XMPPEvents.PARTICIPANT_PERMISSION_CHANGED,
 
         // eslint-disable-next-line max-params
-        (jid, displayName, ressource, allowed, myJid) => {
+        (jid, ressource, allowed) => {
             const id = Strophe.getResourceFromJid(jid);
 
             conference.eventEmitter.emit(
-                JitsiConferenceEvents.PERMISSION_UPDATE_RECEIVED,
+                JitsiConferenceEvents.PARTICIPANT_PERMISSION_CHANGED,
                 id, ressource, allowed);
         });
 

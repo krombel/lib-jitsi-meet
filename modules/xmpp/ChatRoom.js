@@ -862,10 +862,6 @@ export default class ChatRoom extends Listenable {
         msg.c("allowed", String(allowed)).up();
 
         this.connection.send(msg);
-
-        this.eventEmitter.emit(
-            XMPPEvents.SENDING_PRIVATE_CHAT_MESSAGE,
-            "Permission Update: "+ (allowed ? "allow" : "forbid") + " " + resource);
     }
     /* eslint-disable max-params */
     /**
@@ -1045,16 +1041,8 @@ export default class ChatRoom extends Listenable {
             // ressource in question - e.g. screenshare
             const resource = $(msg).find('>resource').text();
             if (resource && (allowed === 'true' || allowed === 'false')) {
-                this.eventEmitter.emit(XMPPEvents.PERMISSION_UPDATE_RECEIVED,
-                    from, nick, resource, String(allowed) === 'true', this.myroomjid);
-            } else {
-                this.eventEmitter.emit(XMPPEvents.MESSAGE_RECEIVED,
-                    from,
-                    nick,
-                    "Permission Update failed (" + resource + "," + allowed + ")",
-                    this.myroomjid,
-                    false
-                );
+                this.eventEmitter.emit(XMPPEvents.PARTICIPANT_PERMISSION_CHANGED,
+                    from, resource, String(allowed) === 'true');
             }
             return;
         }
