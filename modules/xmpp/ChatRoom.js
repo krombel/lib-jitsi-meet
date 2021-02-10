@@ -855,6 +855,18 @@ export default class ChatRoom extends Listenable {
         this.eventEmitter.emit(XMPPEvents.SENDING_CHAT_MESSAGE, message);
     }
 
+    sendPermissionUpdate(id, resource, allowed) {
+        const msg = $msg({ to: id, type: 'permission' });
+
+        msg.c("resource", resource).up();
+        msg.c("allowed", String(allowed)).up();
+
+        this.connection.send(msg);
+
+        this.eventEmitter.emit(
+            XMPPEvents.SENDING_PRIVATE_CHAT_MESSAGE,
+            "Permission Update: "+ (allowed ? "allow" : "forbid") + " " + resource);
+    }
     /* eslint-disable max-params */
     /**
      * Send private text message to another participant of the conference
@@ -1027,6 +1039,24 @@ export default class ChatRoom extends Listenable {
             this.eventEmitter.emit(XMPPEvents.CHAT_ERROR_RECEIVED, errorMsg);
 
             return true;
+        } else if (type === 'permission') {
+            // one of true/false
+            const allowed = $(msg).find('>allowed').text();
+            // ressource in question - e.g. screenshare
+            const resource = $(msg).find('>resource').text();
+            if (resource && (allowed === 'true' || allowed === 'false')) {
+                this.eventEmitter.emit(XMPPEvents.PERMISSION_UPDATE_RECEIVED,
+                    from, nick, resource, String(allowed) === 'true', this.myroomjid);
+            } else {
+                this.eventEmitter.emit(XMPPEvents.MESSAGE_RECEIVED,
+                    from,
+                    nick,
+                    "Permission Update failed (" + resource + "," + allowed + ")",
+                    this.myroomjid,
+                    false
+                );
+            }
+            return;
         }
 
         const txt = $(msg).find('>body').text();

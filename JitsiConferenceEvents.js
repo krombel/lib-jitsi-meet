@@ -196,6 +196,11 @@ export const NOISY_MIC = 'conference.noisy_mic';
 export const PRIVATE_MESSAGE_RECEIVED = 'conference.privateMessageReceived';
 
 /**
+ * Permission update was received (grant/revoke e.g. screenshare).
+ */
+export const PERMISSION_UPDATE_RECEIVED = 'conference.permissionUpdateReceived';
+
+/**
  * Event fired when JVB sends notification about interrupted/restored user's
  * ICE connection status or we detect local problem with the video track.
  * First argument is the ID of the participant and

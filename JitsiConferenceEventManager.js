@@ -398,6 +398,18 @@ JitsiConferenceEventManager.prototype.setupChatRoomListeners = function() {
                 id, txt, ts);
         });
 
+    chatRoom.addListener(
+        XMPPEvents.PERMISSION_UPDATE_RECEIVED,
+
+        // eslint-disable-next-line max-params
+        (jid, displayName, ressource, allowed, myJid) => {
+            const id = Strophe.getResourceFromJid(jid);
+
+            conference.eventEmitter.emit(
+                JitsiConferenceEvents.PERMISSION_UPDATE_RECEIVED,
+                id, ressource, allowed);
+        });
+
     chatRoom.addListener(XMPPEvents.PRESENCE_STATUS,
         (jid, status) => {
             const id = Strophe.getResourceFromJid(jid);

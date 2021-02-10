@@ -120,6 +120,9 @@ const XMPPEvents = {
     // received.
     INVITE_MESSAGE_RECEIVED: 'xmpp.invite_message_received',
 
+    // XMPP event which is dedicated for permission updates (e.g. screenshare)
+    PERMISSION_UPDATE_RECEIVED: 'xmpp.permission_update_received',
+
     // Designates an event indicating that a private XMPP message in the MUC was
     // received.
     PRIVATE_MESSAGE_RECEIVED: 'xmpp.private_message_received',
