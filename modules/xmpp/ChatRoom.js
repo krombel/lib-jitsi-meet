@@ -1042,7 +1042,7 @@ export default class ChatRoom extends Listenable {
             const resource = $(msg).find('>resource').text();
             if (resource && (allowed === 'true' || allowed === 'false')) {
                 this.eventEmitter.emit(XMPPEvents.PARTICIPANT_PERMISSION_CHANGED,
-                    from, resource, String(allowed) === 'true');
+                    from, this.myroomjid, resource, String(allowed) === 'true');
             }
             return;
         }

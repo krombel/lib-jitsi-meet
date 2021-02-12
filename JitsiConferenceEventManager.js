@@ -402,12 +402,13 @@ JitsiConferenceEventManager.prototype.setupChatRoomListeners = function() {
         XMPPEvents.PARTICIPANT_PERMISSION_CHANGED,
 
         // eslint-disable-next-line max-params
-        (jid, ressource, allowed) => {
-            const id = Strophe.getResourceFromJid(jid);
+        (fromJid, toJid, ressource, allowed) => {
+            const fromId = Strophe.getResourceFromJid(fromJid);
+            const toId = Strophe.getResourceFromJid(toJid);
 
             conference.eventEmitter.emit(
                 JitsiConferenceEvents.PARTICIPANT_PERMISSION_CHANGED,
-                id, ressource, allowed);
+                fromId, toId, ressource, allowed);
         });
 
     chatRoom.addListener(XMPPEvents.PRESENCE_STATUS,
