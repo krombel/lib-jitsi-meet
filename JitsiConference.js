@@ -1489,6 +1489,7 @@ JitsiConference.prototype.revokeOwner = function(id) {
     }
 };
 
+/*
  * Grant owner rights to the participant.
  * @param {string} id id of the participant to grant owner rights to.
  */
@@ -1499,8 +1500,6 @@ JitsiConference.prototype.grantPermission = function(id, resource) {
         return;
     }
     this.room.sendPermissionUpdate(participant.getJid(), resource, true);
-    // store locally that this user got this permission granted
-    participant.setPermission(resource, true);
 };
 
 /**
@@ -1514,8 +1513,6 @@ JitsiConference.prototype.revokePermission = function(id, resource) {
         return;
     }
     this.room.sendPermissionUpdate(participant.getJid(), resource, false);
-    // store locally that this user got this permission revoked
-    participant.setPermission(resource, false);
 };
 
 /**
